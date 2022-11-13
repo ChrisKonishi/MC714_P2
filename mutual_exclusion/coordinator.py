@@ -24,8 +24,8 @@ def get_access():
 
 @app.route("/release_access", methods=['GET'])
 def release_access():
-    resourse_semaphore.release()
     logging.info(f"Releasing access to client {request.args.get('id')}")
+    resourse_semaphore.release()
     return Response(), 200
 
 
