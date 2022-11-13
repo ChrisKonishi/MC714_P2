@@ -1,4 +1,4 @@
-# Algoritmo se exclusão mútua centralizado
+# Algoritmo de exclusão mútua centralizado
 
 - Implementado como um servidor HTTP em Flask, executado em difentes containers Docker
 
