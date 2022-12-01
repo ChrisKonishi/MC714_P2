@@ -1,0 +1,52 @@
+version: "3.9"
+services:
+
+  service1:
+    image: ring_election:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 client:app"
+    env_file:
+      - ./.env
+    ports:
+      - 8081:5000
+    environment:
+      - my_id=1
+
+  service2:
+    image: ring_election:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 client:app"
+    env_file:
+      - ./.env
+    ports:
+      - 8082:5000
+    environment:
+      - my_id=2
+
+  service3:
+    image: ring_election:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 client:app"
+    env_file:
+      - ./.env
+    ports:
+      - 8083:5000
+    environment:
+      - my_id=3
+
+  service4:
+    image: ring_election:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 client:app"
+    env_file:
+      - ./.env
+    ports:
+      - 8084:5000
+    environment:
+      - my_id=4
+
+  service5:
+    image: ring_election:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 client:app"
+    env_file:
+      - ./.env
+    ports:
+      - 8085:5000
+    environment:
+      - my_id=5
