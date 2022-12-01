@@ -57,12 +57,12 @@ def check_alive():
         url = get_url(next_id) + '/health_check'
         r = requests.get(url)
         if r.status_code != 200:
+            set_dead_client(next_id)
             if next_id == coordinator:
                 logging.info('Id {} starting new election'.format(my_id))
                 requests.post(get_url(my_id) + '/start_election', json={'clients': []})
             else:
                 logging.info(f'Id {next_id} is dead, it is not the leader, so not starting election')
-                set_dead_client(next_id)
         time.sleep(CHECK_FREQUENCY)
 
 def set_dead_client(id):
