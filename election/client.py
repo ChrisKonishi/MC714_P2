@@ -35,10 +35,9 @@ def get_next_id(id: int) -> int:
     if id > n_clients:
         id = 1
     while id in dead_ids:
+        id += 1
         if id > n_clients:
             id = 1
-        else:
-            id += 1
     if id == get_my_id():
         lock.release()
         raise NextClientIsMe('All clients dead')
@@ -52,6 +51,8 @@ def check_alive():
     my_id = get_my_id()
 
     while True:
+        if not alive:
+            break
         next_id = get_next_id(my_id)
         url = get_url(next_id) + '/health_check'
         r = requests.get(url)
@@ -59,7 +60,15 @@ def check_alive():
             if next_id == coordinator:
                 logging.info('Id {} starting new election'.format(my_id))
                 requests.post(get_url(my_id) + '/start_election', json={'clients': []})
+            else:
+                logging.info(f'Id {next_id} is dead, it is not the leader, so not starting election')
+                set_dead_client(next_id)
         time.sleep(CHECK_FREQUENCY)
+
+def set_dead_client(id):
+    lock.acquire()
+    dead_ids.append(id)
+    lock.release()
 
 def mark_dead_clients(alive: list):
     lock.acquire()
