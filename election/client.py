@@ -111,8 +111,6 @@ def start_election():
 
     # finished election
     if my_id in clients:
-        logging.info('Election finished, detected clients: {}'.format(clients))
-        logging.info('New coordinator: {}'.format(max(clients)))
         clients = sorted(clients)
         mark_dead_clients(clients)
         next_id = get_next_id(my_id)
