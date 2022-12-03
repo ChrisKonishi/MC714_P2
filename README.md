@@ -2,6 +2,8 @@
 
 Neste projeto, três algoritmos de sistemas distribuídos foram implementados utilizando trocas de mensagens através de servidores HTTP.
 
+- [Relatório](./relatorio.pdf)
+
 ## Requisitos
 
 Docker e docker-compose instalados na máquina
