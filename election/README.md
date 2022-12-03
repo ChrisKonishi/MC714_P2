@@ -1,6 +1,6 @@
 # Algoritmo de Eleição de Líder em anel
 
-- Implementado como um servidor HTTP em Flask, executado em difentes containers Docker
+- Implementado como um servidor HTTP em Flask, executado em diferente containers Docker
 
 ## Requisitos
 Docker e docker-compose instalados

@@ -1,4 +1,4 @@
-# Algoritmo de exclusão mútua centralizado
+# Relógio lógico de Lamport
 
 - Implementado como um servidor HTTP em Flask, executado em diferentes containers Docker
 
