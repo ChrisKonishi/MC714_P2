@@ -3,7 +3,7 @@ import os
 import requests
 import time
 import threading
-from flask import Flask, Response, jsonify, request
+from flask import Flask, Response, request
 
 class Clock():
     def __init__(self):
@@ -13,7 +13,6 @@ class Clock():
 
     def start_clock(self):
         self.value += self.id
-        # logging.info(self.value)
         threading.Timer(1.0, self.start_clock).start()
 
 clock = Clock()
@@ -23,7 +22,6 @@ root = logging.getLogger()
 root.setLevel(logging.INFO)
 
 def send_msg(content, id, ts):
-    global clock
     url = f'http://process{id}:5000/receive_msg'
     r = requests.post(url=url, params={'ts':ts, 'content':content})
     return r
@@ -31,9 +29,9 @@ def send_msg(content, id, ts):
 @app.route("/receive_msg", methods=['POST'])
 def receive_msg():
     global clock
-    ts = int(request.args.get('ts'))
     now = clock.value
-    if ts > now:
+    ts = int(request.args.get('ts'))
+    if ts >= now:
         clock.value = ts + 1
         logging.info(f'Process {clock.id} adjusted clock from {now} to {ts + 1}')
     else:
