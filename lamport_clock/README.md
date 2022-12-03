@@ -12,4 +12,5 @@ make build
 
 ## Executando
 ```bash
-docker-compose up```
+docker-compose up
+```
