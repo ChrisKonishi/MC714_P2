@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  process1:
+    image: lamport_clock:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 process:app"
+    ports:
+      - 8081:5000
+    environment:
+      - my_id=1
+
+  process2:
+    image: lamport_clock:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 process:app"
+    ports:
+      - 8082:5000
+    environment:
+      - my_id=2
+
+  process3:
+    image: lamport_clock:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 process:app"
+    ports:
+      - 8083:5000
+    environment:
+      - my_id=3
+
+  application:
+    image: lamport_clock:latest
+    command: "gunicorn --bind=0.0.0.0:5000 -w 1 --threads 5 --keep-alive 5 --timeout 120 application:app"
+    ports:
+      - 5000:5000
+    depends_on:
+      - process1
+      - process2
+      - process3
